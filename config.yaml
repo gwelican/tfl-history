@@ -2,4 +2,4 @@
 username: email
 password: password
 weeks: 8
-location: path
+location: /usr/src/app
