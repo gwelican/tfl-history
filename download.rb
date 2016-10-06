@@ -37,7 +37,7 @@ end
 
 def downloadHistory(page, path)
   form = page.form_with(:name => "jhDownloadForm")
-  form.submit.save_as File.join(path, "extract_#{Date.today.strftime('%Y-%m-%d_%H%M%S')}.csv")
+  form.submit.save_as File.join(path, "extract_#{Date.today.strftime('%Y-%m-%d')}.csv")
 end
 
 def readConfig()
