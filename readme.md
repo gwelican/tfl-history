@@ -42,3 +42,9 @@ docker run -v "$PWD:/usr/src/app" tfl
 ```
 
 Make sure you set the config.yaml to some path that you have write access.
+
+# Kibana
+
+Once you parse csv into ELK, you can visualize your monthly spending like this:
+
+![monthly spending](screenshot.png)
