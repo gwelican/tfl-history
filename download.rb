@@ -10,10 +10,6 @@ require 'active_support/all'
 
 fmt = "%d/%m/%Y"
 
-start_time = Date.today
-end_time = start_time - 8.weeks
-
-
 def login(username, password)
   page = @agent.get("https://oyster.tfl.gov.uk/oyster/entry.do")
   form = page.form_with(:id => "sign-in")
@@ -39,18 +35,37 @@ def viewHistory(page, from, to)
 
 end
 
-def downloadHistory(page)
+def downloadHistory(page, path)
   form = page.form_with(:name => "jhDownloadForm")
-  form.submit.save_as "extract_#{Date.today.strftime('%Y-%m-%d_%H%M%S')}.csv"
+  form.submit.save_as File.join(path, "extract_#{Date.today.strftime('%Y-%m-%d_%H%M%S')}.csv")
 end
+
+def readConfig()
+
+  cnf = YAML::load(File.open('config.yaml'))
+
+  path = cnf['location']
+  weeks = cnf['weeks']
+  unless File.exists?(path)
+    abort("The location(#{path}) does not exists.")
+  end
+
+  if ! weeks.is_a? Integer or weeks < 0 or weeks > 8 then
+    abort("Weeks(#{weeks}) parameter must be an integer between 0 and 8")
+  end
+
+  return cnf
+end
+
+cnf = readConfig()
+
+start_time = Date.today
+end_time = start_time - cnf['weeks'].weeks
 
 from = start_time.strftime(fmt)
 to = end_time.strftime(fmt)
 
-
-cnf = YAML::load(File.open('config.yaml'))
-
 page = login(cnf['username'], cnf['password'])
 page = selectCard(page, "060365470360")
 page = viewHistory(page, from, to)
-page = downloadHistory(page)
+page = downloadHistory(page, cnf['location'])
