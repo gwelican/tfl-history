@@ -2,6 +2,12 @@
 
 This project will download your TFL history from the official TFL website in CSV format.
 
+# Installation
+
+```
+bundle install
+```
+
 # Configuration
 
 In config.yaml:
@@ -22,3 +28,17 @@ The format of the CSV is the following as of (2016-10-06)
 ```
 Date,Start Time,End Time,Journey/Action,Charge,Credit,Balance,Note
 ```
+
+# Docker
+
+Build docker image with:
+```
+docker build -t tfl-history .
+```
+Then you can run with a volume mount like this:
+
+```
+docker run -v "$PWD:/usr/src/app" tfl
+```
+
+Make sure you set the config.yaml to some path that you have write access.

@@ -1,6 +1,4 @@
-# Encoding: utf-8
-#
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require "mechanize"
 require 'active_support/all'
