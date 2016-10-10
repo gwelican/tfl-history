@@ -57,8 +57,8 @@ end
 
 cnf = readConfig()
 
-start_time = Date.today
-end_time = start_time - cnf['weeks'].weeks
+end_time = Date.today
+start_time = end_time - cnf['weeks'].weeks
 
 from = start_time.strftime(fmt)
 to = end_time.strftime(fmt)
