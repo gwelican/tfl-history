@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'mechanize', '2.7.6'
-gem 'activesupport', '5.2.3'
+gem 'activesupport', '6.0.0'
